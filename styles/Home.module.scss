@@ -2,6 +2,8 @@
 
 .success,
 .failure {
+  position: sticky;
+  top: 0;
   padding: 20px !important;
   margin: 0 !important;
   text-align: center;

@@ -15,6 +15,8 @@ function App() {
     mobile_number: "",
     email: "",
     date_of_birth: "",
+    job: "",
+    employer: "",
   });
   const [errors, setErrors] = useState({});
 
@@ -108,6 +110,8 @@ function App() {
           mobile_number: "",
           email: "",
           date_of_birth: "",
+          job: "",
+          employer: "",
         });
       }}
     >
