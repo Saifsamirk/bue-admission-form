@@ -96,54 +96,21 @@ function App() {
     });
   };
 
-  // Create a function to encode the body of the request sent to
-  // the server
-  const encode = (data) => {
-    return Object.keys(data)
-      .map(
-        (key) => encodeURIComponent(key) + "=" + encodeURIComponent(data[key])
-      )
-      .join("&");
-  };
-
-  // // Create a function that handles the submission of the form to
-  // // the server
-  // const handleSubmit = (e) => {
-  //   // Send a post request to the server to add the form submission to
-  //   // the dashboard
-  //   fetch("/", {
-  //     method: "POST",
-  //     headers: { "Content-Type": "application/x-www-form-urlencoded" },
-  //     body: encode({ "form-name": "contact", ...isForm }),
-  //   })
-  //     .then(() => alert("Success!"))
-  //     .catch((error) => alert(error));
-  //   // Prevent the form from navigating to another page or
-  //   // reloading
-  //   e.preventDefault();
-  //   e.stopPropagation();
-  // };
-
-  console.log({ isForm });
-  console.log({ errors });
-
   return (
     <NetlifyForm
       name="Contact"
       action="/thanks"
       honeypotName="bot-field"
       data-netlify="true"
+      onSuccess={() => {
+        setForm({
+          full_name: "",
+          mobile_number: "",
+          email: "",
+          date_of_birth: "",
+        });
+      }}
     >
-      {/* <form
-       noValidate
-       autoComplete="off"
-       name="contact"
-       method="POST"
-       netlify
-       netlify-honeypot="bot-field"
-       hidden
-       onSubmit={handleSubmit}
-     > */}
       {({ handleChange, success, error }) => (
         <>
           <Honeypot />
@@ -353,7 +320,6 @@ function App() {
                 </Button>
               </Grid>
             </Grid>
-            {/* </form> */}
           </section>
         </>
       )}
