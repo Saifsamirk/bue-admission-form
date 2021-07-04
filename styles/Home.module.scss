@@ -2,6 +2,7 @@
 
 .success,
 .failure {
+  z-index: 1;
   position: sticky;
   top: 0;
   padding: 20px !important;
