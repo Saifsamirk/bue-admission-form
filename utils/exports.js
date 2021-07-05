@@ -5,3 +5,4 @@ export { default as date_of_birth } from "../assets/date_of_birth.svg";
 export { default as mobile_number } from "../assets/mobile_number.svg";
 export { default as current_job } from "../assets/current_job.svg";
 export { default as employer } from "../assets/employer.svg";
+export { default as course } from "../assets/course.svg";

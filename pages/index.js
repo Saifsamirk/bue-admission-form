@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, memo } from "react";
 import classes from "../styles/Home.module.scss";
 import { Button, TextField, Grid } from "@material-ui/core";
 import InputAdornment from "@material-ui/core/InputAdornment";
@@ -15,6 +15,7 @@ function App() {
     mobile_number: "",
     email: "",
     date_of_birth: "",
+    course: "",
     job: "",
     employer: "",
   });
@@ -71,6 +72,17 @@ function App() {
           }
         });
       }),
+    course: Joi.string()
+      .required()
+      .label("Course")
+      .error((errors) => {
+        return errors.map((error) => {
+          switch (error.type) {
+            case "any.empty":
+              return { message: "Course Name Is Required" };
+          }
+        });
+      }),
   };
 
   // Create a function that handles the change of the
@@ -80,11 +92,9 @@ function App() {
       ...isForm,
       [input.name]: input.value,
     });
-    const error = { ...errors };
     setErrors({
-      ...validationService.getFieldError(input, schema, error),
+      ...validationService.getFieldError(input, schema, errors),
     });
-    // this.setState({ ...this.state, errors: error, brand: value });
   };
 
   /**
@@ -92,9 +102,8 @@ function App() {
    * @param {input} param0
    */
   const onBlur = ({ currentTarget: input }) => {
-    const error = { ...errors };
     setErrors({
-      ...validationService.getFieldError(input, schema, error),
+      ...validationService.getFieldError(input, schema, errors),
     });
   };
 
@@ -109,6 +118,7 @@ function App() {
           full_name: "",
           mobile_number: "",
           email: "",
+          course: "",
           date_of_birth: "",
           job: "",
           employer: "",
@@ -253,6 +263,31 @@ function App() {
                   }}
                 />
               </Grid>
+              <Grid item md={12} sm={12} xs={12}>
+                <TextField
+                  required
+                  fullWidth
+                  variant="outlined"
+                  name="course"
+                  label="Course"
+                  value={isForm.course}
+                  onChange={(e) => {
+                    handleInputChange(e);
+                    handleChange(e);
+                  }}
+                  onBlur={onBlur}
+                  className={classes.field}
+                  error={errors.course ? true : false}
+                  helperText={errors.course}
+                  InputProps={{
+                    startAdornment: (
+                      <InputAdornment position="start">
+                        <Image src={images.course} width={40} height={40} />
+                      </InputAdornment>
+                    ),
+                  }}
+                />
+              </Grid>
               <Grid item md={6} sm={12} xs={12}>
                 <TextField
                   fullWidth
@@ -314,6 +349,7 @@ function App() {
                         email: isForm?.email?.trim(),
                         date_of_birth: isForm?.date_of_birth?.trim(),
                         mobile_number: isForm?.mobile_number?.trim(),
+                        course: isForm?.course?.trim(),
                       },
                       schema
                     ) != null
@@ -331,4 +367,4 @@ function App() {
   );
 }
 
-export default App;
+export default memo(App);
